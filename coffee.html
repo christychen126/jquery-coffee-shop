@@ -47,17 +47,42 @@
 
     var myImage = $("#coffee_image");
     var myRevenueMessage = $("#revenue");
+    var drinksOrdered = [];
+    var espresso = $("#espresso");
+    var latte = $("#latte");
+    var hotChocolate = $("#hot-chocolate");
+    var prices = {'brew': 0,
+                  'espresso': 3.25,
+                  'latte': 4.15,
+                  'hot chocolate': 2.50};
 
     myImage.attr("src", "static/coffee_beans.jpg");
 
 
-    function makeCoffee() {
+    function makeCoffee(drinkType) {
         myImage.attr("src", "static/coffee_machine.jpg");
         setTimeout(function() { myImage.attr("src", "static/coffee_mug.jpg"); }, 500);
         setTimeout(function() { myImage.attr("src", "static/coffee_beans.jpg"); }, 1500);
+        drinksOrdered.push(drinkType);
+        console.log(drinksOrdered);
     }
 
-    myImage.on('click', makeCoffee);
+    myImage.on('click', function () { return makeCoffee('brew'); });
+    espresso.on('click', function () { return makeCoffee('espresso'); });
+    latte.on('click', function () { return makeCoffee('latte'); });
+    hotChocolate.on('click', function () { return makeCoffee('hot chocolate'); });
+
+
+    function revenue() {
+        var total;
+        var drink;
+        for (var i = 0; i < drinksOrdered.length; i++) {
+            drink = drinksOrdered[i];
+            total = total + prices[drink];
+
+        }
+        return total;
+    }
 
 </script>
 
